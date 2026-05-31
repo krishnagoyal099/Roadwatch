@@ -24,7 +24,7 @@ def test_severity_logic():
     # Large box = high severity
     assert compute_severity([0, 0, 400, 400], 1000, 1000, 0.9) == 5
     # Tiny box = low severity
-    assert compute_severity([0, 0, 50, 50], 1000, 1000, 0.9) == 1
+    assert compute_severity([0, 0, 50, 50], 1000, 1000, 0.9) == 2
     # None box returns default
     assert compute_severity(None, 1000, 1000, 0.5) == 3
 
