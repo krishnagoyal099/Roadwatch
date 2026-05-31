@@ -28,6 +28,24 @@ RoadWatch empowers everyday citizens to seamlessly report road infrastructure de
 
 ---
 
+## Environment Variables
+
+Before running the application, you must create an `apps/backend/.env` file. You can use the provided `.env.example` as a template (if available) or create it manually with the following required keys:
+
+```ini
+# Supabase Configuration
+SUPABASE_URL=https://<your-project>.supabase.co
+SUPABASE_KEY=<your-anon-key>
+SUPABASE_SERVICE_ROLE_KEY=<your-service-role-key>
+
+# Groq LLM Configuration
+GROQ_API_KEY=<your-groq-api-key>
+GROQ_MODEL=llama-3.3-70b-versatile
+```
+*(Note: If using Docker Compose, the `CV_SERVICE_URL` and `HOST` variables are injected automatically.)*
+
+---
+
 ## Quick Start (Docker)
 
 The easiest way to run the entire RoadWatch stack (Frontend, Backend, and ML Microservice) is using Docker Compose.
