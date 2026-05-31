@@ -1,0 +1,28 @@
+# Environments
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node
+node_modules/
+dist/
+build/
