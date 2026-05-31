@@ -1,5 +1,5 @@
  # Updated frontend CI workflow - 2026-05-31
- name: Frontend CI
+name: Frontend CI
 
 on:
   push:
