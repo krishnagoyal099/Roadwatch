@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 class ChatRequest(BaseModel):
     """Payload for POST /api/chat."""
     session_id: str
-    message: str = Field(..., min_length=1)
+    message: str = ""
     image_base64: Optional[str] = None
     lat: Optional[float] = Field(None, ge=-90, le=90)
     lng: Optional[float] = Field(None, ge=-180, le=180)

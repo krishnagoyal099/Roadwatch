@@ -55,11 +55,16 @@ async def chat(
     if update_kwargs:
         session = sessions.update(session.session_id, **update_kwargs)
 
-    try:
-        intent = llm_service.classify_intent(request.message)
-    except Exception as e:
-        logger.error("intent_classification_error", extra={"error": str(e)})
-        intent = "unclear"
+    if request.image_base64:
+        intent = "report_defect"
+    elif session.image_base64:
+        intent = "report_defect"
+    else:
+        try:
+            intent = llm_service.classify_intent(request.message)
+        except Exception as e:
+            logger.error("intent_classification_error", extra={"error": str(e)})
+            intent = "unclear"
 
     sessions.update(session.session_id, intent=intent)
     logger.info("chat_intent_classified", extra={"session_id": session.session_id, "intent": intent})

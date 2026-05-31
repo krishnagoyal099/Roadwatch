@@ -51,7 +51,10 @@ export const ChatPage: React.FC = () => {
         {/* Footer actions input */}
         <div className="p-4 bg-white border-t border-zinc-100 space-y-3">
           <div className="flex items-center justify-between">
-            <LocationButton onLocationSelected={(coords) => setGpsLocation(coords)} />
+            <LocationButton onLocationSelected={(coords) => {
+              setGpsLocation(coords);
+              sendMessage('📍 Location Shared', null, coords);
+            }} />
             <span className="text-[9px] font-bold tracking-widest text-zinc-400 uppercase">
               BIMSTEC Grid H3-R9
             </span>
