@@ -20,6 +20,7 @@ For production use, if you are saving images, you need to create a public storag
 Connect your FastAPI backend to Supabase by adding the following to your `apps/backend/.env`:
 ```env
 SUPABASE_URL=https://your-project-ref.supabase.co
-SUPABASE_KEY=your-anon-or-service-role-key
+SUPABASE_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 ```
-For local development, the Anon key is sufficient as Row Level Security (RLS) policies are open by default in the provided schema.
+For local development, both keys are required by the backend configuration model to start the server. The Service Role Key is explicitly used by the `ComplaintService` to bypass RLS when filing new tickets.
