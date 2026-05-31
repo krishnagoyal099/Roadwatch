@@ -1,4 +1,5 @@
-name: Frontend CI
+ # Updated frontend CI workflow - 2026-05-31
+ name: Frontend CI
 
 on:
   push:
