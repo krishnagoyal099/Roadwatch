@@ -8,6 +8,8 @@ from pathlib import Path
 from typing import Optional
 import numpy as np
 from PIL import Image
+import torch
+
 
 logger = logging.getLogger(__name__)
 
@@ -27,11 +29,14 @@ def load_model(weights_path: Optional[Path] = None):
     global _model
     if _model is not None:
         return _model
+
     from ultralytics import YOLO
+
     if weights_path is None:
         weights_path = Path(__file__).parent.parent / "models" / "best.pt"
     if not weights_path.exists():
         raise FileNotFoundError(f"Model weights not found at {weights_path}")
+
     logger.info(f"Loading YOLOv8 model from {weights_path}")
     _model = YOLO(str(weights_path))
     logger.info("YOLOv8 model loaded successfully")

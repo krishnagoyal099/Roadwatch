@@ -1,32 +1,35 @@
-name: ML CI
+name: ML Pipeline Tests
 
 on:
   push:
-    branches: [main, master]
     paths:
-      - 'ml/**'
+      - 'apps/ml/**'
   pull_request:
-    branches: [main, master]
     paths:
-      - 'ml/**'
+      - 'apps/ml/**'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./ml
+        working-directory: apps/ml
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: apps/ml/requirements.txt
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cpu
+          pip install ultralytics fastapi uvicorn pillow numpy python-dotenv pytest
 
-      - name: Run tests
-        run: pytest
+      - name: Run ML tests (no model weights needed)
+        run: pytest tests/test_predictions.py -v
