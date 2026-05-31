@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cpu
-          pip install ultralytics fastapi uvicorn pillow numpy python-dotenv pytest
+          pip install -r requirements.txt
 
       - name: Run ML tests (no model weights needed)
         run: pytest tests/test_predictions.py -v
