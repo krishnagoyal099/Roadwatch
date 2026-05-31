@@ -12,39 +12,39 @@ interface ComplaintTableProps {
 
 export const ComplaintTable: React.FC<ComplaintTableProps> = ({ complaints, onRowClick }) => {
   return (
-    <div className="bg-white border border-slate-100 rounded-xl shadow-xs overflow-hidden">
+    <div className="bg-white border border-slate-200/80 rounded-xl shadow-xs overflow-hidden">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-slate-50/75 border-b border-slate-100 text-[11px] font-bold tracking-wider text-slate-400 uppercase">
-              <th className="px-6 py-4">Ticket</th>
-              <th className="px-6 py-4">Defect Type</th>
-              <th className="px-6 py-4">Severity</th>
-              <th className="px-6 py-4">Road Name</th>
-              <th className="px-6 py-4">Assigned Engineer</th>
-              <th className="px-6 py-4">Status</th>
-              <th className="px-6 py-4">Date Filed</th>
-              <th className="px-6 py-4 text-right">Action</th>
+            <tr className="bg-slate-50/70 border-b border-slate-200 text-[10px] font-bold tracking-widest text-slate-400 uppercase">
+              <th className="px-6 py-3.5">Ticket ID</th>
+              <th className="px-6 py-3.5">Defect Type</th>
+              <th className="px-6 py-3.5">Severity</th>
+              <th className="px-6 py-3.5">Road Stretch</th>
+              <th className="px-6 py-3.5">Responsible Engineer</th>
+              <th className="px-6 py-3.5">Status</th>
+              <th className="px-6 py-3.5">Logged Date</th>
+              <th className="px-6 py-3.5 text-right">Inspect</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 text-sm font-medium text-slate-700">
+          <tbody className="divide-y divide-slate-100 text-xs font-semibold text-slate-700">
             {complaints.map((item) => (
               <tr
                 key={item.id}
                 onClick={() => onRowClick(item.id)}
-                className="hover:bg-slate-50/50 cursor-pointer transition-colors group"
+                className="hover:bg-slate-50/60 cursor-pointer transition-colors group"
               >
                 <td className="px-6 py-4 font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                   {item.ticket_number}
                 </td>
-                <td className="px-6 py-4">{item.defect_type}</td>
+                <td className="px-6 py-4 font-medium text-slate-800">{item.defect_type}</td>
                 <td className="px-6 py-4">
                   <SeverityIndicator score={item.severity_score} />
                 </td>
-                <td className="px-6 py-4 text-slate-600">
-                  {item.road_name || 'Unassigned Road'}
+                <td className="px-6 py-4 text-slate-500 font-medium">
+                  {item.road_name || 'N/A'}
                 </td>
-                <td className="px-6 py-4 text-slate-500">
+                <td className="px-6 py-4 text-slate-500 font-medium">
                   {item.assigned_engineer || 'Unassigned'}
                 </td>
                 <td className="px-6 py-4">
@@ -54,8 +54,8 @@ export const ComplaintTable: React.FC<ComplaintTableProps> = ({ complaints, onRo
                   {formatDate(item.created_at)}
                 </td>
                 <td className="px-6 py-4 text-right">
-                  <span className="inline-flex p-1 rounded-md bg-slate-50 text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 transition-all">
-                    <ArrowUpRight className="w-4 h-4" />
+                  <span className="inline-flex p-1 rounded bg-slate-100 text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                    <ArrowUpRight className="w-3.5 h-3.5" />
                   </span>
                 </td>
               </tr>

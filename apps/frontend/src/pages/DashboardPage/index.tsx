@@ -18,26 +18,25 @@ export const DashboardPage: React.FC = () => {
     updateFilters({ status: '', defect_type: '' });
   };
 
-  // Client-side search match to enable responsive lookups
   const filteredComplaints = complaints.filter((c) =>
     c.ticket_number.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <PageWrapper>
-      <div className="space-y-6">
-        {/* Page Title Header */}
-        <div className="space-y-1">
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Public Accountability Tracker</h1>
-          <p className="text-sm text-slate-500 font-medium">
-            Verifiably logged complaint lifecycles mapped across active demo districts.
+      <div className="space-y-8 animate-slide-up">
+        {/* Editorial-style header */}
+        <div className="space-y-2 border-b border-zinc-200/60 pb-5">
+          <h1 className="text-5xl font-serif font-light text-zinc-950 leading-none tracking-tight">
+            Accountability ledger.
+          </h1>
+          <p className="text-xs text-zinc-500 font-semibold uppercase tracking-widest">
+            Cross-referenced public road database & civic response logs
           </p>
         </div>
 
-        {/* Dashboard KPI Statistics */}
         <MetricsCards complaints={complaints} total={total} />
 
-        {/* Filters Controls Panel */}
         <ComplaintFilters
           filters={filters}
           searchTerm={searchTerm}
@@ -46,18 +45,16 @@ export const DashboardPage: React.FC = () => {
           onReset={handleReset}
         />
 
-        {/* Primary complaint list display */}
         {loading ? (
-          <div className="flex justify-center py-12">
+          <div className="flex justify-center py-16">
             <Spinner />
           </div>
         ) : filteredComplaints.length > 0 ? (
           <ComplaintTable complaints={filteredComplaints} onRowClick={(id) => setSelectedId(id)} />
         ) : (
-          <EmptyState message="No complaint records found matching your current filter specifications." />
+          <EmptyState message="No complaints registered under current filter options." />
         )}
 
-        {/* Dynamic Detail Event Inspector Drawer */}
         {selectedId && (
           <ComplaintDetailDrawer
             id={selectedId}

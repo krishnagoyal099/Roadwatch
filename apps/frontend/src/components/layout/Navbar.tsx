@@ -1,50 +1,56 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MessageSquare, LayoutDashboard, Landmark, ShieldCheck } from 'lucide-react';
+import { Icons } from '../ui/Icons';
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: '/', label: 'AI Chatbot', icon: <MessageSquare className="w-4 h-4" /> },
-    { path: '/dashboard', label: 'Accountability Dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
-    { path: '/spending', label: 'Spending Tracker', icon: <Landmark className="w-4 h-4" /> },
+    { path: '/', label: 'Assistant', icon: <Icons.Chat size={14} /> },
+    { path: '/dashboard', label: 'Dashboard', icon: <Icons.Dashboard size={14} /> },
+    { path: '/spending', label: 'Spending', icon: <Icons.Landmark size={14} /> },
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-slate-900 text-white border-b border-slate-800 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo Brand Header */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <ShieldCheck className="w-6 h-6 text-blue-500 group-hover:rotate-12 transition-transform" />
-            <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
-              RoadWatch
-            </span>
+    <header className="sticky top-0 z-40 w-full border-b border-zinc-200/60 bg-white/85 backdrop-blur-md">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex h-16 items-center justify-between">
+          <Link to="/" className="flex items-center gap-3 group">
+            {/* Swapped shield-check for the perspective lane brand target logo */}
+            <div className="p-2 bg-zinc-950 text-white rounded-lg group-hover:scale-105 transition-transform">
+              <Icons.BrandLogo size={16} />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-extrabold text-sm tracking-widest text-zinc-900 font-sans leading-none uppercase">
+                ROADWATCH
+              </span>
+              <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest mt-1.5 leading-none">
+                Civic Ledger
+              </span>
+            </div>
           </Link>
 
-          {/* Navigation Links */}
-          <div className="flex space-x-1">
+          <nav className="flex space-x-1.5 bg-zinc-50 p-1 rounded-xl border border-zinc-200/40">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               return (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold tracking-tight transition-all duration-150 ${
                     isActive
-                      ? 'bg-blue-600 text-white shadow-xs'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                      ? 'bg-white text-zinc-950 shadow-xs border border-zinc-200/50'
+                      : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100/50'
                   }`}
                 >
                   {item.icon}
-                  <span className="hidden md:inline">{item.label}</span>
+                  <span>{item.label}</span>
                 </Link>
               );
             })}
-          </div>
+          </nav>
         </div>
       </div>
-    </nav>
+    </header>
   );
 };

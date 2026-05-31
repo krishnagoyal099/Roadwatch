@@ -1,60 +1,60 @@
 import React from 'react';
 import { EventTimeline as EventType } from '../../types/api';
 import { formatDate } from '../../lib/helpers';
-import { FilePlus, Sparkles, ShieldCheck, ClipboardCheck } from 'lucide-react';
+import { Check, AlertCircle, ArrowUpRight } from 'lucide-react';
 
 interface EventTimelineProps {
   events: EventType[];
 }
 
 export const EventTimeline: React.FC<EventTimelineProps> = ({ events }) => {
-  const getTimelineIcon = (type: string) => {
+  const getTimelineIndicator = (type: string) => {
     switch (type) {
       case 'Filed':
-        return <FilePlus className="w-4 h-4 text-blue-600" />;
+        return <Check className="w-3 h-3 text-blue-600" />;
       case 'Escalated':
-        return <Sparkles className="w-4 h-4 text-orange-600" />;
+        return <AlertCircle className="w-3 h-3 text-orange-600" />;
       case 'Resolved':
-        return <ShieldCheck className="w-4 h-4 text-emerald-600" />;
+        return <Check className="w-3 h-3 text-emerald-600" />;
       default:
-        return <ClipboardCheck className="w-4 h-4 text-slate-600" />;
+        return <ArrowUpRight className="w-3 h-3 text-slate-600" />;
     }
   };
 
-  const getTimelineBadgeColor = (type: string) => {
+  const getTimelineBorderColor = (type: string) => {
     switch (type) {
       case 'Filed':
-        return 'bg-blue-50 border-blue-200';
+        return 'border-blue-200 bg-blue-50';
       case 'Escalated':
-        return 'bg-orange-50 border-orange-200';
+        return 'border-orange-200 bg-orange-50';
       case 'Resolved':
-        return 'bg-emerald-50 border-emerald-200';
+        return 'border-emerald-200 bg-emerald-50';
       default:
-        return 'bg-slate-50 border-slate-200';
+        return 'border-slate-200 bg-slate-50';
     }
   };
 
   return (
-    <div className="relative border-l-2 border-slate-100 pl-6 ml-3 space-y-6 py-2">
+    <div className="relative border-l border-slate-200 pl-5 ml-2.5 space-y-6 py-1">
       {events.map((ev) => (
-        <div key={ev.id} className="relative group">
+        <div key={ev.id} className="relative">
           {/* Indicator Dot Circle */}
-          <div className={`absolute -left-[35px] top-1 w-6 h-6 rounded-full border flex items-center justify-center shrink-0 z-10 ${
-            getTimelineBadgeColor(ev.event_type)
+          <div className={`absolute -left-[29px] top-0.5 w-4.5 h-4.5 rounded-full border flex items-center justify-center shrink-0 z-10 ${
+            getTimelineBorderColor(ev.event_type)
           }`}>
-            {getTimelineIcon(ev.event_type)}
+            {getTimelineIndicator(ev.event_type)}
           </div>
 
-          {/* Core metadata details */}
+          {/* Core Event Stamp */}
           <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-bold text-slate-800">{ev.event_type}</span>
-              <span className="text-[10px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-md">
+            <div className="flex items-baseline gap-2">
+              <span className="text-xs font-bold text-slate-800">{ev.event_type}</span>
+              <span className="text-[10px] font-semibold text-slate-400">
                 {formatDate(ev.created_at)}
               </span>
             </div>
             {ev.event_note && (
-              <p className="text-xs text-slate-500 leading-relaxed max-w-md font-medium">
+              <p className="text-xs text-slate-500 leading-relaxed max-w-sm font-medium">
                 {ev.event_note}
               </p>
             )}

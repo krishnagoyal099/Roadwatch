@@ -12,30 +12,29 @@ export const SpendingPage: React.FC = () => {
 
   return (
     <PageWrapper>
-      <div className="space-y-6">
-        {/* Page Title Header */}
-        <div className="space-y-1">
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Public Fiscal Spending</h1>
-          <p className="text-sm text-slate-500 font-medium">
-            Cross-referenced public infrastructure budgets mapped with outstanding quality metrics.
+      <div className="space-y-8 animate-slide-up">
+        {/* Editorial-style header */}
+        <div className="space-y-2 border-b border-zinc-200/60 pb-5">
+          <h1 className="text-5xl font-serif font-light text-zinc-950 leading-none tracking-tight">
+            Infrastructure spending.
+          </h1>
+          <p className="text-xs text-zinc-500 font-semibold uppercase tracking-widest">
+            Public project budgets mapped with quality performance metrics
           </p>
         </div>
 
-        {/* Aggregated Spending KPI Statistics Cards */}
         <MetricsCards data={data} />
 
-        {/* Filters Panel bar */}
         <SpendingFilters filters={filters} onFilterChange={updateFilters} />
 
-        {/* Primary Fiscal Stretches list display */}
         {loading ? (
-          <div className="flex justify-center py-12">
+          <div className="flex justify-center py-16">
             <Spinner />
           </div>
         ) : data && data.segments.length > 0 ? (
           <SpendingTable segments={data.segments} />
         ) : (
-          <EmptyState message="No segment contracts or fiscal records resolved matching selected options." />
+          <EmptyState message="No budget records returned for this filter criteria." />
         )}
       </div>
     </PageWrapper>

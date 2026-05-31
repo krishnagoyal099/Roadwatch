@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Send, Image, X } from 'lucide-react';
+import { Icons } from '../../components/ui/Icons';
 import { Button } from '../../components/ui/Button';
 
 interface ChatInputProps {
@@ -37,21 +37,19 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, disabled }) => {
   };
 
   return (
-    <div className="bg-white border border-slate-200 rounded-xl p-3 shadow-md">
-      {/* File preview bar */}
+    <div className="bg-white border border-zinc-200 rounded-lg p-2.5 shadow-xs">
       {preview && (
-        <div className="relative inline-block mb-3 bg-slate-50 border border-slate-100 p-1.5 rounded-lg">
-          <img src={preview} alt="Upload preview" className="w-16 h-16 object-cover rounded-md" />
+        <div className="relative inline-block mb-2 bg-zinc-50 border border-zinc-200/50 p-1 rounded-md">
+          <img src={preview} alt="Upload preview" className="w-14 h-14 object-cover rounded-sm" />
           <button
             onClick={() => { setFile(null); setPreview(null); }}
-            className="absolute -top-1.5 -right-1.5 p-0.5 bg-slate-950 text-white rounded-full hover:scale-105"
+            className="absolute -top-1 -right-1 p-0.5 bg-zinc-950 text-white rounded-full hover:scale-105"
           >
-            <X className="w-3.5 h-3.5" />
+            <Icons.Close size={10} />
           </button>
         </div>
       )}
 
-      {/* Input controls container */}
       <div className="flex items-center gap-2">
         <input
           type="file"
@@ -64,9 +62,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, disabled }) => {
           variant="outline"
           onClick={() => fileInputRef.current?.click()}
           disabled={disabled}
-          className="p-2 h-10 w-10 text-slate-500 border-slate-200 hover:text-slate-800 shrink-0"
+          className="p-2 h-9 w-9 text-zinc-500 border-zinc-200 hover:text-zinc-950 shrink-0 rounded-md"
         >
-          <Image className="w-5 h-5" />
+          <Icons.Upload size={14} />
         </Button>
 
         <textarea
@@ -75,17 +73,17 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, disabled }) => {
           disabled={disabled}
           onKeyDown={handleKeyDown}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Type your issue or query (e.g. 'pothole on MG Road')..."
-          className="flex-1 max-h-24 py-2.5 px-1 resize-none bg-transparent outline-hidden text-sm text-slate-800 placeholder-slate-400 focus:ring-0"
+          placeholder="Describe your issue or query..."
+          className="flex-1 max-h-20 py-2 px-1 resize-none bg-transparent outline-hidden text-xs text-zinc-800 placeholder-zinc-400 focus:ring-0"
         />
 
         <Button
           variant="primary"
           onClick={handleSend}
           disabled={disabled || (!text.trim() && !file)}
-          className="h-10 w-10 p-0 rounded-lg shadow-xs shrink-0"
+          className="h-9 w-9 p-0 rounded-md shrink-0 bg-zinc-950 text-white hover:bg-zinc-800"
         >
-          <Send className="w-4 h-4" />
+          <Icons.Send size={12} />
         </Button>
       </div>
     </div>
